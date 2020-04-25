@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-const useForm = (initialFormValues) => {
-    const [formValues, setFormValues] = useState(initialFormValues);
+const useForm = ({ initialFormValues, onFormSubmit }) => {
+    const [formValues, setFormValues] = useState(initialFormValues || {});
 
     const handleFormChange = (name) => (event) => {
         event.persist();
@@ -13,9 +13,15 @@ const useForm = (initialFormValues) => {
         });
     };
 
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        onFormSubmit(formValues);
+    };
+
     return {
         formValues,
         handleFormChange,
+        handleFormSubmit,
     };
 };
 

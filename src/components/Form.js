@@ -3,19 +3,17 @@ import React from 'react';
 import useForm from '../hooks/useForm';
 
 const Form = () => {
-    const { formValues, handleFormChange } = useForm({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-    });
-    const addUser = (event) => {
-        event.preventDefault();
-        alert(JSON.stringify(formValues, null, 4));
+    const displayFormValues = (values) => {
+        alert(JSON.stringify(values, null, 4));
     };
 
+    const { formValues, handleFormChange, handleFormSubmit } = useForm({
+        initialFormValues: { firstName: '', lastName: '', email: '', password: '' },
+        onFormSubmit: displayFormValues,
+    });
+
     return (
-        <form onSubmit={addUser}>
+        <form onSubmit={handleFormSubmit}>
             <input
                 name="firstName"
                 type="text"
